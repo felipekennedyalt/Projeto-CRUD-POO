@@ -1,26 +1,25 @@
 
 package univs.edu.usuario;
 
+
+import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 
 @Entity
 public class Usuario {
-    
+   
     @Id
     @GeneratedValue
     private int idUsuario;
     
-    @Column(length = 20, nullable = true)
-    private String login;
-    @Column(length = 20, nullable = true)
-    private String senha;
+    @Column(length = 20, nullable = false)
+    private String loginUsuario;
+    
+    @Column(length = 20, nullable = false)
+    private String senhaUsuario;
 
-    
-    
     /**
      * @return the idUsuario
      */
@@ -36,31 +35,33 @@ public class Usuario {
     }
 
     /**
-     * @return the login
+     * @return the loginUsuario
      */
-    public String getLogin() {
-        return login;
+    public String getLoginUsuario() {
+        return loginUsuario;
     }
 
     /**
-     * @param login the login to set
+     * @param loginUsuario the loginUsuario to set
      */
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLoginUsuario(String loginUsuario) {
+        this.loginUsuario = loginUsuario;
     }
 
     /**
-     * @return the senha
+     * @return the senhaUsuario
      */
-    public String getSenha() {
-        return senha;
+    public String getSenhaUsuario() {
+        return senhaUsuario;
     }
 
     /**
-     * @param senha the senha to set
+     * @param senhaUsuario the senhaUsuario to set
      */
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setSenhaUsuario(String senhaUsuario) {
+        this.senhaUsuario = senhaUsuario;
     }
-  
+            
+    
+        
 }
