@@ -1,5 +1,7 @@
 package univs.edu.usuario;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -40,6 +42,14 @@ public class UsuarioDAO {
         Usuario usuario = (Usuario) sessao.createCriteria(Usuario.class).add(Restrictions.eq("idUsuario", idUsuario)).uniqueResult();
         sessao.close();
         return usuario;
+    }
+    
+     public List<Usuario> listarUsuarios() {
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
+        List<Usuario> usuarios =  sessao.createCriteria(Usuario.class).list();
+        sessao.close();
+        return usuarios;
     }
 
 }
