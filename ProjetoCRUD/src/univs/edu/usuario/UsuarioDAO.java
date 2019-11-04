@@ -2,6 +2,8 @@ package univs.edu.usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import jdk.nashorn.internal.scripts.JO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -15,7 +17,12 @@ public class UsuarioDAO {
     public void salvar(Usuario usuario) {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
-        sessao.save(usuario); //Salvar no banco
+        if (usuario.getIdUsuario() == 0) {
+            sessao.save(usuario); //Salvar no banco
+        } else {
+            editar(usuario);
+            JOptionPane.showMessageDialog(null, "Editado!");
+        }
         transacao.commit(); //Executar a ação no banco
         sessao.close(); //Fechar a conexão com o banco
     }
@@ -43,11 +50,11 @@ public class UsuarioDAO {
         sessao.close();
         return usuario;
     }
-    
-     public List<Usuario> listarUsuarios() {
+
+    public List<Usuario> listarUsuarios() {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
-        List<Usuario> usuarios =  sessao.createCriteria(Usuario.class).list();
+        List<Usuario> usuarios = sessao.createCriteria(Usuario.class).list();
         sessao.close();
         return usuarios;
     }
