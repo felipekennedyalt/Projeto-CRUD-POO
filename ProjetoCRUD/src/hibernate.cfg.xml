@@ -14,7 +14,8 @@
         <property name="generate_statistics">false</property>
         <property name="use_sql_coments">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="univs.edu.usuario.Usuario"/>                     
+        <mapping class="univs.edu.usuario.Usuario"/> 
+        <mapping class="univs.edu.funcionario.Funcionario"/>                     
     </session-factory>
 </hibernate-configuration>
 
