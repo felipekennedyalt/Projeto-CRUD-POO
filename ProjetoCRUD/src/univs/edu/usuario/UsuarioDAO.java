@@ -19,9 +19,10 @@ public class UsuarioDAO {
         transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
         if (usuario.getIdUsuario() == 0) {
             sessao.save(usuario); //Salvar no banco
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado!");
         } else {
             editar(usuario);
-            JOptionPane.showMessageDialog(null, "Editado!");
+            JOptionPane.showMessageDialog(null, "Usuário editado!");
         }
         transacao.commit(); //Executar a ação no banco
         sessao.close(); //Fechar a conexão com o banco
@@ -50,13 +51,13 @@ public class UsuarioDAO {
         sessao.close();
         return usuario;
     }
-    
+
     public Usuario autenticarUsuario(String login, String senha) {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
         Usuario usuario = (Usuario) sessao.createCriteria(Usuario.class).add(Restrictions.eq("loginUsuario", login)).add(Restrictions.eq("senhaUsuario", senha)).uniqueResult();
         sessao.close();
-        
+
         return usuario != null ? usuario : null;
     }
 

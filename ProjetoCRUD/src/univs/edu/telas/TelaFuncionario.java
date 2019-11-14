@@ -5,6 +5,7 @@
  */
 package univs.edu.telas;
 
+import javax.swing.JOptionPane;
 import univs.edu.funcionario.Funcionario;
 import univs.edu.funcionario.FuncionarioDAO;
 import univs.edu.usuario.Usuario;
@@ -36,6 +37,14 @@ public class TelaFuncionario extends javax.swing.JFrame {
         tfCPF.setText("");
         jcCargo.setSelectedItem("Selecione");
     }
+    
+    public void preencherFuncionario(){
+        tfNome.setText(funcionario.getNomeFuncionario());
+        tfCPF.setText(funcionario.getCpf());
+        tfSalario.setText(String.valueOf(funcionario.getSalario()));
+        tfUsuario.setText(funcionario.getUsuario().getLoginUsuario());
+        jcCargo.setSelectedItem(funcionario.getCargo());
+    }
 
     public void carregarUsuario(Usuario usuario) {
         funcionario.setUsuario(usuario);
@@ -66,6 +75,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Cadastro Funcionario");
@@ -105,6 +115,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Cargo.:");
 
+        jcCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administrador", "Recursos humanos" }));
         jcCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcCargoActionPerformed(evt);
@@ -113,6 +124,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
 
         tfUsuario.setEditable(false);
         tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfUsuario.setText("Selecione um usuário");
         tfUsuario.setEnabled(false);
         tfUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +152,11 @@ public class TelaFuncionario extends javax.swing.JFrame {
         });
 
         jButton4.setText("Salvar");
+        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton4FocusGained(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -275,8 +292,17 @@ public class TelaFuncionario extends javax.swing.JFrame {
             funcionario.setCpf(tfCPF.getText());
             funcionario.setNomeFuncionario(tfNome.getText());
             funcionario.setSalario(Double.parseDouble(tfSalario.getText()));
+            dao.salvar(funcionario);
+            limparCampos();
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+            
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4FocusGained
 
     /**
      * @param args the command line arguments
