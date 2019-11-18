@@ -8,6 +8,7 @@ import jdk.nashorn.internal.scripts.JO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import univs.edu.funcionario.Funcionario;
 import univs.edu.util.HibernateUtil;
 
 public class FuncionarioDAO {
@@ -60,5 +61,15 @@ public class FuncionarioDAO {
         sessao.close();
         return funcionarios;
     }
+    
+    public Funcionario autenticarFuncionario(String login, String senha) {
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction(); //Preparar a sessão para inserir no banco
+        Funcionario funcionario = (Funcionario) sessao.createCriteria(Funcionario.class).add(Restrictions.eq("usuario.loginUsuario", login)).add(Restrictions.eq("usuario.senhaUsuario", senha)).uniqueResult();
+        sessao.close();
+
+        return funcionario != null ? funcionario : null;
+    }
+    
 
 }

@@ -5,9 +5,12 @@
  */
 package univs.edu.telas;
 
+import java.util.List;
 import javax.swing.JOptionPane;
-import univs.edu.usuario.Usuario;
-import univs.edu.usuario.UsuarioDAO;
+import univs.edu.funcionario.Funcionario;
+import univs.edu.funcionario.FuncionarioDAO;
+import univs.edu.funcionario.Funcionario;
+import univs.edu.funcionario.FuncionarioDAO;
 
 /**
  *
@@ -15,15 +18,15 @@ import univs.edu.usuario.UsuarioDAO;
  */
 public class TelaAutenticacao extends javax.swing.JFrame {
 
-    Usuario usuario;
-    UsuarioDAO dao;
-    
+    Funcionario funcionario;
+    FuncionarioDAO dao;
+
     public TelaAutenticacao() {
         initComponents();
         this.setLocationRelativeTo(null);
-        usuario = new Usuario();
-        dao = new UsuarioDAO();
-        
+        funcionario = new Funcionario();
+        dao = new FuncionarioDAO();
+
     }
 
     /**
@@ -124,17 +127,29 @@ public class TelaAutenticacao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfLoginActionPerformed
 
+    public Funcionario autenticarFunc(String login, String senha) {
+        List<Funcionario> listaFuncionario = dao.listarFuncionarios();
+
+        for (Funcionario funcionario1 : listaFuncionario) {
+            if (funcionario1.getUsuario().getLoginUsuario().equals(login) && funcionario1.getUsuario().getSenhaUsuario().equals(senha)) {
+                return funcionario1;
+            }
+        }
+
+        return null;
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      if(!tfLogin.getText().isEmpty() && !tfSenha.getText().isEmpty()){
-          usuario = dao.autenticarUsuario(tfLogin.getText(), tfSenha.getText());
-          if(usuario != null){
-              MenuPrincipal menu = new MenuPrincipal();
-              menu.setVisible(true);
-              dispose();
-          }else{
-              JOptionPane.showMessageDialog(null, "Dados invalidos!");
-          }
-      }
+        if (!tfLogin.getText().isEmpty() && !tfSenha.getText().isEmpty()) {
+            funcionario = autenticarFunc(tfLogin.getText(), tfSenha.getText());
+            if (funcionario != null) {
+                MenuPrincipal menu = new MenuPrincipal(funcionario);
+                menu.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Dados invalidos!");
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

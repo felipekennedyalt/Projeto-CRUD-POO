@@ -37,8 +37,8 @@ public class TelaFuncionario extends javax.swing.JFrame {
         tfCPF.setText("");
         jcCargo.setSelectedItem("Selecione");
     }
-    
-    public void preencherFuncionario(){
+
+    public void preencherFuncionario() {
         tfNome.setText(funcionario.getNomeFuncionario());
         tfCPF.setText(funcionario.getCpf());
         tfSalario.setText(String.valueOf(funcionario.getSalario()));
@@ -143,6 +143,11 @@ public class TelaFuncionario extends javax.swing.JFrame {
         });
 
         jButton2.setText("Voltar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Limpar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +169,11 @@ public class TelaFuncionario extends javax.swing.JFrame {
         });
 
         jButton5.setText("Pesquisar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -294,15 +304,25 @@ public class TelaFuncionario extends javax.swing.JFrame {
             funcionario.setSalario(Double.parseDouble(tfSalario.getText()));
             dao.salvar(funcionario);
             limparCampos();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-            
+
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton4FocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4FocusGained
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        TelaPesquisaFuncionario tela = new TelaPesquisaFuncionario();
+        tela.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
