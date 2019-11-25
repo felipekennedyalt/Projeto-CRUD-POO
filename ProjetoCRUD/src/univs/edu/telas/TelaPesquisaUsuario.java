@@ -5,6 +5,7 @@
  */
 package univs.edu.telas;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import univs.edu.usuario.Usuario;
 import univs.edu.usuario.UsuarioDAO;
@@ -22,11 +23,11 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
     public TelaPesquisaUsuario() {
         initComponents();
         this.setLocationRelativeTo(null);
-        atualizarTabela();
+        atualizarTabela(dao.listarUsuarios());
     }
 
-    public void atualizarTabela() {
-        UsuarioTableModel tm = new UsuarioTableModel(dao.listarUsuarios());
+    public void atualizarTabela(List<Usuario> usuarios) {
+        UsuarioTableModel tm = new UsuarioTableModel(usuarios);
         tabelaUsuario.setModel(tm);
     }
 
@@ -61,6 +62,11 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
         tfLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfLoginActionPerformed(evt);
+            }
+        });
+        tfLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfLoginKeyPressed(evt);
             }
         });
 
@@ -162,7 +168,7 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        atualizarTabela(dao.pesquisar("loginUsuario", tfLogin.getText()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -178,7 +184,7 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
         } else if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este Usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             usuario = dao.pesquisar((int) tabelaUsuario.getValueAt(linha, 0));
             dao.excluir(usuario);
-            atualizarTabela();
+            atualizarTabela(dao.listarUsuarios());
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -197,6 +203,12 @@ public class TelaPesquisaUsuario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tfLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLoginKeyPressed
+       
+        atualizarTabela(dao.pesquisar("loginUsuario", tfLogin.getText()));
+        
+    }//GEN-LAST:event_tfLoginKeyPressed
 
     /**
      * @param args the command line arguments
